@@ -1,0 +1,15 @@
+FROM ubuntu
+
+RUN apt-get update && \
+    apt-get install -y npm && \
+    npm cache clean --force
+
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
+
+RUN npm install express body-parser && \
+    npm install cors
+
+EXPOSE 5000
+CMD ["node", "server.js"]

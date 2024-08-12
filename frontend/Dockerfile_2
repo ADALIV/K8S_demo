@@ -1,0 +1,19 @@
+FROM ubuntu
+
+RUN apt-get update && \
+    apt-get install -y npm && \
+    npm cache clean --force
+
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
+
+RUN npm cache clean --force && \
+    npm install http-proxy-middleware && \
+    npm install react-router-dom && \
+    npm install axios
+
+ENV WDS_SOCKET_PORT=0
+
+EXPOSE 3000
+CMD ["npm", "start"]
